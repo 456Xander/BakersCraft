@@ -1,0 +1,16 @@
+[
+{
+  "modid": "bakerscraft",
+  "name": "Bakers Craft",
+  "description": "Make flour, dough and bake bread.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["456Xander", "Andi43"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
