@@ -8,4 +8,8 @@ public class ServerProxy {
 	public void registerTexture(Item item, int meta, ModelResourceLocation location) {
 		
 	}
+	
+	public void loadTextures(){
+		
+	}
 }
