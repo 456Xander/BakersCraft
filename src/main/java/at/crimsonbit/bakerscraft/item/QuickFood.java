@@ -1,5 +1,6 @@
 package at.crimsonbit.bakerscraft.item;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 
@@ -16,6 +17,7 @@ public class QuickFood extends ItemFood{
 		super(amount, saturation, isWolfFood);
 		this.time = time;
 		setUnlocalizedName(unlocName);
+		setCreativeTab(CreativeTabs.FOOD);
 	}
 	
 	@Override

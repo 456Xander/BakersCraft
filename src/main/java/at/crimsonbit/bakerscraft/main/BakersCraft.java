@@ -5,9 +5,11 @@ import static at.crimsonbit.bakerscraft.item.AllItems.*;
 import at.crimsonbit.bakerscraft.item.CraftingTool;
 import at.crimsonbit.bakerscraft.item.CraftingTool.CraftingToolType;
 import at.crimsonbit.bakerscraft.item.GenericItem;
+import at.crimsonbit.bakerscraft.item.ItemFlour;
 import at.crimsonbit.bakerscraft.item.QuickFood;
 import at.crimsonbit.bakerscraft.proxy.ServerProxy;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
@@ -42,34 +44,62 @@ public class BakersCraft {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		Configuration config = new Configuration(e.getSuggestedConfigurationFile());
-		ConfigCategory crafting = new ConfigCategory("Crafting");
+		ConfigCategory crafting = config.getCategory("Crafting");
 		crafting.setComment("Configurations for crafting recipes");
 
-		allowAllStoneForMortar = config.getBoolean(name, crafting.getName(), false,
+		ConfigCategory craftingTools = config.getCategory("CraftingTools");
+		craftingTools.setComment("Configurations for crafting tools, such as durability");
+
+		ConfigCategory food = config.getCategory("Food");
+		food.setComment("Configurations for food");
+
+		allowAllStoneForMortar = config.getBoolean("AllowAllStone", crafting.getName(), false,
 				"Set this to true to allow all kinds of stone to be used for the stone mortar, requires the UnifiedStoneTools mod");
+		int durabilityMortarStone = config.getInt("StoneMortarDurability", craftingTools.getName(), 32, 1,
+				Short.MAX_VALUE, "");
+		int durabilityMortarIron = config.getInt("IronMortarDurability", craftingTools.getName(), 128, 1,
+				Short.MAX_VALUE, "");
+		int durabilityMortarObsidian = config.getInt("ObsidianMortarDurability", craftingTools.getName(), 1024, 1,
+				Short.MAX_VALUE, "");
+
+		boolean useVanillaCookies = config.getBoolean("useVanillaCookies", food.getName(), false,
+				"true to use vanilla cookies instead of this mods cookies, all other cookie config will not change anything if this is true");
+		int cookieHunger = config.getInt("cookieHunger", food.getName(), 2, 1, 20,
+				"How many hunger a cookie refills, a player has 20");
+		float cookieSaturation = config.getFloat("cookieSaturation", food.getName(), 0.25f, 0.0f, 1.0f,
+				"How much Saturation cookies refill, with 0.5f, saturation is the same as hunger");
+		int cookieEatTime = config.getInt("cookieEatTime", food.getName(), 12, 1, 64,
+				"how many ticks it takes to eat cookies, vanilla is 32");
+
 		config.save();
 
 		// Item creation
-		dough = new GenericItem("dough");
+		dough = new GenericItem("dough").setCreativeTab(CreativeTabs.FOOD);
 		registerItem("dough", dough);
 
-		flour = new GenericItem("flour");
+		flour = new ItemFlour("flour").setCreativeTab(CreativeTabs.MATERIALS);
 		registerItem("flour", flour);
 
-		cookieDough = new GenericItem("cookie_dough");
+		cookieDough = new GenericItem("cookie_dough").setCreativeTab(CreativeTabs.FOOD);
 		registerItem("cookie_dough", cookieDough);
 
-		stone_mortar = new CraftingTool("stone_mortar", 32, CraftingToolType.MORTAR);
+		stone_mortar = new CraftingTool("stone_mortar", durabilityMortarStone, CraftingToolType.MORTAR)
+				.setCreativeTab(CreativeTabs.TOOLS);
 		registerItem("stone_mortar", stone_mortar);
 
-		iron_mortar = new CraftingTool("iron_mortar", 128, CraftingToolType.MORTAR);
+		iron_mortar = new CraftingTool("iron_mortar", durabilityMortarIron, CraftingToolType.MORTAR)
+				.setCreativeTab(CreativeTabs.TOOLS);
 		registerItem("iron_mortar", iron_mortar);
 
-		obsidian_mortar = new CraftingTool("obsidian_mortar", 1024, CraftingToolType.MORTAR);
+		obsidian_mortar = new CraftingTool("obsidian_mortar", durabilityMortarObsidian, CraftingToolType.MORTAR)
+				.setCreativeTab(CreativeTabs.TOOLS);
 		registerItem("obsidian_mortar", obsidian_mortar);
-
-		chocolate_cookie = new QuickFood(3, 0.3f, false, 20, "chocolate_cookies");
-		registerItem("chocolate_cookies", chocolate_cookie);
+		if (!useVanillaCookies) {
+			chocolate_cookie = new QuickFood(cookieHunger, cookieSaturation, false, cookieEatTime, "chocolate_cookies");
+			registerItem("chocolate_cookies", chocolate_cookie);
+		} else {
+			chocolate_cookie = Items.COOKIE;
+		}
 	}
 
 	private void registerItem(String name, Item item) {
