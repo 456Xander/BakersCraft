@@ -1,7 +1,16 @@
 item.flour.name=Mehl
 item.dough.name=Teig
+item.chocolate_muffin_dough.name=Schokomuffinteig
+item.chocolate_cake_dough.name=Schokokuchenteig
+item.chocolate_muffin.name=Schokomuffin
+item.chocolate_cake.name=Schokokuchen
+item.chocolate_bar.name=Schokoriegel
 item.cookie_dough.name=Keksteig
 item.chocolate_cookies.name=Kekse
 item.stone_mortar.name=Steinmörser
 item.iron_mortar.name=Eisenmörser
 item.obsidian_mortar.name=Obsidianmörser
+item.potato_dough=Kartoffelteig
+item.potato_bread=Kartoffelbrot
+
+itemGroup.Doug=Teig

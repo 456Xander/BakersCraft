@@ -31,7 +31,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class BakersCraft {
 	public static final String modid = "bakerscraft";
 	public static final String name = "Bakers Craft";
-	public static final String version = "1.0";
+	public static final String version = "0.2";
 
 	@Instance
 	public static BakersCraft instance;
@@ -71,16 +71,46 @@ public class BakersCraft {
 		int cookieEatTime = config.getInt("cookieEatTime", food.getName(), 12, 1, 64,
 				"how many ticks it takes to eat cookies, vanilla is 32");
 
+		int chocolate_bar_hunger = config.getInt("chocolate_bar_hunger", food.getName(), 2, 1, 20,
+				"chocolate bars never give saturation, so no config for that");
+
+		int chocolate_muffin_hunger = config.getInt("chocolate_muffin_hunger", food.getName(), 9, 1, 20, "");
+
+		float chocolate_muffin_saturation = config.getFloat("chocolate_muffin_saturation", food.getName(), 0.5f, 0.0f,
+				1.0f, "How much Saturation chocolate muffins refill, with 0.5f, saturation is the same as hunger");
+
+		int chocolate_cake_hunger = config.getInt("chocolate_cake_hunger", food.getName(), 10, 1, 20, "");
+
+		float chocolate_cake_saturation = config.getFloat("chocolate_cake_saturation", food.getName(), 0.45f, 0.0f,
+				1.0f, "How much Saturation chocolate cake refills, with 0.5f, saturation is the same as hunger");
+
+		int potato_bread_hunger = config.getInt("potato_bread__hunger", food.getName(), 6, 1, 20, "");
+
+		float potato_bread__saturation = config.getFloat("potato_bread__saturation", food.getName(), 0.6f, 0.0f, 1.0f,
+				"How much Saturation potato bread refills, with 0.5f, saturation is the same as hunger");
+
 		config.save();
 
 		// Item creation
-		dough = new GenericItem("dough").setCreativeTab(CreativeTabs.FOOD);
+		dough = new GenericItem("dough");
 		registerItem("dough", dough);
+
+		doughTab = new BakersCreaTab(CreativeTabs.getNextID(), "Dough", dough);
+		dough.setCreativeTab(doughTab);
+
+		potato_dough = new GenericItem("potato_dough").setCreativeTab(doughTab);
+		registerItem("potato_dough", potato_dough);
+
+		chocolate_muffin_dough = new GenericItem("chocolate_muffin_dough").setCreativeTab(doughTab);
+		registerItem("chocolate_muffin_dough", chocolate_muffin_dough);
+
+		chocolate_cake_dough = new GenericItem("chocolate_cake_dough").setCreativeTab(doughTab);
+		registerItem("chocolate_cake_dough", chocolate_cake_dough);
 
 		flour = new ItemFlour("flour").setCreativeTab(CreativeTabs.MATERIALS);
 		registerItem("flour", flour);
 
-		cookieDough = new GenericItem("cookie_dough").setCreativeTab(CreativeTabs.FOOD);
+		cookieDough = new GenericItem("cookie_dough").setCreativeTab(doughTab);
 		registerItem("cookie_dough", cookieDough);
 
 		stone_mortar = new CraftingTool("stone_mortar", durabilityMortarStone, CraftingToolType.MORTAR)
@@ -100,6 +130,19 @@ public class BakersCraft {
 		} else {
 			chocolate_cookie = Items.COOKIE;
 		}
+
+		chocolate_bar = new QuickFood(chocolate_bar_hunger, 0.0f, false, cookieEatTime, "chocolate_bar");
+		registerItem("chocolate_bar", chocolate_bar);
+
+		chocolate_muffin = new QuickFood(chocolate_muffin_hunger, chocolate_muffin_saturation, false, 28,
+				"chocolate_muffin");
+		registerItem("chocolate_muffin", chocolate_muffin);
+
+		chocolate_cake = new QuickFood(chocolate_cake_hunger, chocolate_cake_saturation, false, 32, "chocolate_cake");
+		registerItem("chocolate_cake", chocolate_cake);
+
+		potato_bread = new QuickFood(potato_bread_hunger, potato_bread__saturation, false, 32, "potato_bread");
+		registerItem("potato_bread", potato_bread);
 	}
 
 	private void registerItem(String name, Item item) {
@@ -136,10 +179,20 @@ public class BakersCraft {
 		GameRegistry.addShapelessRecipe(new ItemStack(cookieDough, 3), dough,
 				new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()),
 				new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()));
+		GameRegistry.addShapelessRecipe(new ItemStack(chocolate_bar),
+				new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()), Items.SUGAR, Items.MILK_BUCKET);
+		GameRegistry.addShapelessRecipe(new ItemStack(chocolate_muffin_dough), chocolate_bar, dough, Items.SUGAR,
+				Items.EGG);
+		GameRegistry.addShapelessRecipe(new ItemStack(potato_dough, 2), dough, Items.BAKED_POTATO);
+		GameRegistry.addShapedRecipe(new ItemStack(chocolate_cake_dough, 2), "CCC", "SES", "DMD", 'E', Items.EGG, 'C',
+				chocolate_bar, 'M', Items.MILK_BUCKET, 'D', dough, 'S', Items.SUGAR);
 
 		// Smelting
 		GameRegistry.addSmelting(dough, new ItemStack(Items.BREAD), 0.2F);
 		GameRegistry.addSmelting(cookieDough, new ItemStack(chocolate_cookie, 2), 0.1f);
+		GameRegistry.addSmelting(chocolate_muffin_dough, new ItemStack(chocolate_muffin), 0.2F);
+		GameRegistry.addSmelting(chocolate_cake_dough, new ItemStack(chocolate_cake), 0.2f);
+		GameRegistry.addSmelting(potato_dough, new ItemStack(potato_bread), 0.2f);
 	}
 
 	@EventHandler
