@@ -10,7 +10,13 @@ item.chocolate_cookies.name=Cookies
 item.stone_mortar.name=Stone Mortar
 item.iron_mortar.name=Iron Mortar
 item.obsidian_mortar.name=Obsidian Mortar
-item.potato_dough=Potato Dough
-item.potato_bread=Potato Bread
+item.potato_dough.name=Potato Dough
+item.potato_bread.name=Potato Bread
+
+item.carrot_cake.name=Carrot Cake
+item.apple_pie.name=Apple Pie
+
+block.carrot_cake.name=Carrot Cake
+block.apple_pie.name=Apple Pie
 
 itemGroup.Doug=Dough

@@ -1,5 +1,6 @@
 package at.crimsonbit.bakerscraft.item;
 
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -13,4 +14,8 @@ public class AllItems {
 	public static Item chocolate_cookie, chocolate_muffin, chocolate_bar, chocolate_cake, potato_bread;
 
 	public static CreativeTabs doughTab;
+
+	public static Item itemApplePie, itemCarrotCake;
+
+	public static Block blockApplePie, blockCarrotCake;
 }

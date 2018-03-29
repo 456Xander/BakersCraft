@@ -2,18 +2,21 @@ package at.crimsonbit.bakerscraft.main;
 
 import static at.crimsonbit.bakerscraft.item.AllItems.*;
 
+import at.crimsonbit.bakerscraft.block.BlockCustomCake;
 import at.crimsonbit.bakerscraft.item.CraftingTool;
 import at.crimsonbit.bakerscraft.item.CraftingTool.CraftingToolType;
 import at.crimsonbit.bakerscraft.item.GenericItem;
 import at.crimsonbit.bakerscraft.item.ItemFlour;
 import at.crimsonbit.bakerscraft.item.QuickFood;
 import at.crimsonbit.bakerscraft.proxy.ServerProxy;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlockSpecial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
@@ -31,7 +34,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class BakersCraft {
 	public static final String modid = "bakerscraft";
 	public static final String name = "Bakers Craft";
-	public static final String version = "0.2";
+	public static final String version = "1.0";
 
 	@Instance
 	public static BakersCraft instance;
@@ -43,6 +46,10 @@ public class BakersCraft {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
+		initConfigAndItems(e);
+	}
+
+	private void initConfigAndItems(FMLPreInitializationEvent e) {
 		Configuration config = new Configuration(e.getSuggestedConfigurationFile());
 		ConfigCategory crafting = config.getCategory("Crafting");
 		crafting.setComment("Configurations for crafting recipes");
@@ -84,10 +91,20 @@ public class BakersCraft {
 		float chocolate_cake_saturation = config.getFloat("chocolate_cake_saturation", food.getName(), 0.45f, 0.0f,
 				1.0f, "How much Saturation chocolate cake refills, with 0.5f, saturation is the same as hunger");
 
-		int potato_bread_hunger = config.getInt("potato_bread__hunger", food.getName(), 6, 1, 20, "");
+		int potato_bread_hunger = config.getInt("potato_bread_hunger", food.getName(), 6, 1, 20, "");
 
 		float potato_bread__saturation = config.getFloat("potato_bread__saturation", food.getName(), 0.6f, 0.0f, 1.0f,
 				"How much Saturation potato bread refills, with 0.5f, saturation is the same as hunger");
+
+		int carrot_cake_hunger = config.getInt("carrot_cake_hunger", food.getName(), 2, 1, 20, "");
+
+		float carrot_cake_saturation = config.getFloat("carrot_cake_saturation", food.getName(), 0.1f, 0.0f, 1.0f,
+				"How much Saturation carrot cake refills, with 0.5f, saturation is the same as hunger");
+
+		int apple_pie_hunger = config.getInt("apple_pie_hunger", food.getName(), 2, 1, 20, "");
+
+		float apple_pie_saturation = config.getFloat("apple_pie_saturation", food.getName(), 0.1f, 0.0f, 1.0f,
+				"How much Saturation apple pie refills, with 0.5f, saturation is the same as hunger");
 
 		config.save();
 
@@ -143,6 +160,21 @@ public class BakersCraft {
 
 		potato_bread = new QuickFood(potato_bread_hunger, potato_bread__saturation, false, 32, "potato_bread");
 		registerItem("potato_bread", potato_bread);
+
+		blockApplePie = new BlockCustomCake(apple_pie_hunger, apple_pie_saturation).setHardness(0.5f).setUnlocalizedName("apple_pie");
+
+		itemApplePie = new ItemBlockSpecial(blockApplePie).setMaxStackSize(1).setUnlocalizedName("apple_pie")
+				.setCreativeTab(CreativeTabs.FOOD);
+		registerItem("apple_pie", itemApplePie);
+		registerBlock("apple_pie", blockApplePie);
+
+		blockCarrotCake = new BlockCustomCake(carrot_cake_hunger, carrot_cake_saturation).setHardness(0.5f).setUnlocalizedName("carrot_cake");
+
+		itemCarrotCake = new ItemBlockSpecial(blockCarrotCake).setMaxStackSize(1).setUnlocalizedName("carrot_cake")
+				.setCreativeTab(CreativeTabs.FOOD);
+		registerItem("carrot_cake", itemCarrotCake);
+		registerBlock("carrot_cake", blockCarrotCake);
+
 	}
 
 	private void registerItem(String name, Item item) {
@@ -151,10 +183,13 @@ public class BakersCraft {
 		GameRegistry.register(item);
 	}
 
+	private void registerBlock(String name, Block block) {
+		block.setRegistryName(name);
+		GameRegistry.register(block);
+	}
+
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
-
-		proxy.loadTextures();
 
 		// Mortar Recipes
 		GameRegistry.addRecipe(new MortarRecipe(new ItemStack(flour, 1), Items.WHEAT));

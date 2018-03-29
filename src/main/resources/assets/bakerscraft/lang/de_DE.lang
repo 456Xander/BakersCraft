@@ -10,7 +10,13 @@ item.chocolate_cookies.name=Kekse
 item.stone_mortar.name=Steinmörser
 item.iron_mortar.name=Eisenmörser
 item.obsidian_mortar.name=Obsidianmörser
-item.potato_dough=Kartoffelteig
-item.potato_bread=Kartoffelbrot
+item.potato_dough.name=Kartoffelteig
+item.potato_bread.name=Kartoffelbrot
 
-itemGroup.Doug=Teig
+item.carrot_cake.name=Karottenkuchen
+item.apple_pie.name=Apfelkuchen
+
+block.carrot_cake.name=Karottenkuchen
+block.apple_pie.name=Apfelkuchen
+
+itemGroup.Doug.name=Teig
