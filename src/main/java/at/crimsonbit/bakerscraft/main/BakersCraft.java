@@ -161,14 +161,16 @@ public class BakersCraft {
 		potato_bread = new QuickFood(potato_bread_hunger, potato_bread__saturation, false, 32, "potato_bread");
 		registerItem("potato_bread", potato_bread);
 
-		blockApplePie = new BlockCustomCake(apple_pie_hunger, apple_pie_saturation).setHardness(0.5f).setUnlocalizedName("apple_pie");
+		blockApplePie = new BlockCustomCake(apple_pie_hunger, apple_pie_saturation).setHardness(0.5f)
+				.setUnlocalizedName("apple_pie");
 
 		itemApplePie = new ItemBlockSpecial(blockApplePie).setMaxStackSize(1).setUnlocalizedName("apple_pie")
 				.setCreativeTab(CreativeTabs.FOOD);
 		registerItem("apple_pie", itemApplePie);
 		registerBlock("apple_pie", blockApplePie);
 
-		blockCarrotCake = new BlockCustomCake(carrot_cake_hunger, carrot_cake_saturation).setHardness(0.5f).setUnlocalizedName("carrot_cake");
+		blockCarrotCake = new BlockCustomCake(carrot_cake_hunger, carrot_cake_saturation).setHardness(0.5f)
+				.setUnlocalizedName("carrot_cake");
 
 		itemCarrotCake = new ItemBlockSpecial(blockCarrotCake).setMaxStackSize(1).setUnlocalizedName("carrot_cake")
 				.setCreativeTab(CreativeTabs.FOOD);

@@ -22,8 +22,8 @@ public class ItemFlour extends GenericItem {
 		BlockPos position = entityItem.getPosition();
 		World world = entityItem.getEntityWorld();
 		if (world.getBlockState(position).getBlock() == Blocks.WATER) {
-			ItemStack items = entityItem.getEntityItem();
-			entityItem.setEntityItemStack(new ItemStack(AllItems.dough, items.getCount()));
+			ItemStack items = entityItem.getItem();
+			entityItem.setItem(new ItemStack(AllItems.dough, items.getCount()));
 			entityItem.addVelocity((flourRandom.nextDouble() - 0.5) / 2, (flourRandom.nextDouble() / 2) + 0.5,
 					(flourRandom.nextDouble() - 0.5) / 2);
 			return true;
