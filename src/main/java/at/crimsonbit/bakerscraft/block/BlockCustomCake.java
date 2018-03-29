@@ -28,13 +28,9 @@ public class BlockCustomCake extends BlockCake {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!worldIn.isRemote) {
-			return this.eatCake(worldIn, pos, state, playerIn);
-		} else {
-			ItemStack itemstack = playerIn.getHeldItem(hand);
-			return this.eatCake(worldIn, pos, state, playerIn) || itemstack.isEmpty();
-		}
+			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		this.eatCake(worldIn, pos, state, playerIn);
+		return true;
 	}
 
 	protected boolean eatCake(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {

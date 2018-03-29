@@ -11,7 +11,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -22,22 +21,20 @@ public class MortarRecipe implements IRecipe {
 	public MortarRecipe(ItemStack result, Object... crafting) {
 		this.result = result;
 		ingredients = new ArrayList<ItemStack>();
-		for(Object o : crafting) {
-			if(o instanceof Item) {
+		for (Object o : crafting) {
+			if (o instanceof Item) {
 				ingredients.add(new ItemStack((Item) o));
-			}
-			else if(o instanceof ItemStack) {
+			} else if (o instanceof ItemStack) {
 				ingredients.add((ItemStack) o);
-			}
-			else if(o instanceof Block) {
+			} else if (o instanceof Block) {
 				ingredients.add(new ItemStack((Block) o));
-			}
-			else {
-				throw new IllegalArgumentException("Invalid shapeless recipe: unknown type " + o.getClass().getName() + "!");
+			} else {
+				throw new IllegalArgumentException(
+						"Invalid shapeless recipe: unknown type " + o.getClass().getName() + "!");
 			}
 		}
 	}
-	
+
 	public MortarRecipe(ItemStack result, List<ItemStack> crafting) {
 		this.result = result;
 		ingredients = crafting;
@@ -49,7 +46,7 @@ public class MortarRecipe implements IRecipe {
 		List<ItemStack> list = new ArrayList<ItemStack>(ingredients);
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if (!stack.isEmpty()) {
+			if (stack != null && stack.stackSize != 0) {
 
 				if (stack.getItem() instanceof CraftingTool && !hasMortar
 						&& ((CraftingTool) (stack.getItem())).getCraftingToolType() == CraftingToolType.MORTAR) {
@@ -93,15 +90,14 @@ public class MortarRecipe implements IRecipe {
 	}
 
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-		NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-
-		for (int i = 0; i < nonnulllist.size(); ++i) {
+	public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+		ItemStack[] invArr = new ItemStack[inv.getSizeInventory()];
+		for (int i = 0; i < invArr.length; ++i) {
 			ItemStack itemstack = inv.getStackInSlot(i);
-			nonnulllist.set(i, net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
+			invArr[i] = net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack);
 		}
 
-		return nonnulllist;
+		return invArr;
 	}
 
 }

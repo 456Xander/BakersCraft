@@ -112,7 +112,7 @@ public class BakersCraft {
 		dough = new GenericItem("dough");
 		registerItem("dough", dough);
 
-		doughTab = new BakersCreaTab(CreativeTabs.getNextID(), "Dough", dough);
+		doughTab = new BakersCreaTab(CreativeTabs.getNextID(), "dough", dough);
 		dough.setCreativeTab(doughTab);
 
 		potato_dough = new GenericItem("potato_dough").setCreativeTab(doughTab);

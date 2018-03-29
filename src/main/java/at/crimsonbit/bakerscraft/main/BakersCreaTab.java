@@ -2,7 +2,6 @@ package at.crimsonbit.bakerscraft.main;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public class BakersCreaTab extends CreativeTabs {
 	private Item logo;
@@ -13,7 +12,7 @@ public class BakersCreaTab extends CreativeTabs {
 	}
 
 	@Override
-	public ItemStack getTabIconItem() {
-		return new ItemStack(logo);
+	public Item getTabIconItem() {
+		return logo;
 	}
 }

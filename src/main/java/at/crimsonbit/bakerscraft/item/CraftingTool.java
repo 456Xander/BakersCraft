@@ -1,7 +1,5 @@
 package at.crimsonbit.bakerscraft.item;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.ItemStack;
 
 public class CraftingTool extends GenericItem {
@@ -27,11 +25,6 @@ public class CraftingTool extends GenericItem {
 	@Override
 	public boolean isDamageable() {
 		return true;
-	}
-	
-	@Override
-	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-		return enchantment.type == EnumEnchantmentType.BREAKABLE;
 	}
 	
 	public CraftingToolType getCraftingToolType() {
