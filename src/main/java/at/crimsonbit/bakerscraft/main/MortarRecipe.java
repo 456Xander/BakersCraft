@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -22,22 +23,20 @@ public class MortarRecipe implements IRecipe {
 	public MortarRecipe(ItemStack result, Object... crafting) {
 		this.result = result;
 		ingredients = new ArrayList<ItemStack>();
-		for(Object o : crafting) {
-			if(o instanceof Item) {
+		for (Object o : crafting) {
+			if (o instanceof Item) {
 				ingredients.add(new ItemStack((Item) o));
-			}
-			else if(o instanceof ItemStack) {
+			} else if (o instanceof ItemStack) {
 				ingredients.add((ItemStack) o);
-			}
-			else if(o instanceof Block) {
+			} else if (o instanceof Block) {
 				ingredients.add(new ItemStack((Block) o));
-			}
-			else {
-				throw new IllegalArgumentException("Invalid shapeless recipe: unknown type " + o.getClass().getName() + "!");
+			} else {
+				throw new IllegalArgumentException(
+						"Invalid shapeless recipe: unknown type " + o.getClass().getName() + "!");
 			}
 		}
 	}
-	
+
 	public MortarRecipe(ItemStack result, List<ItemStack> crafting) {
 		this.result = result;
 		ingredients = crafting;
@@ -83,11 +82,6 @@ public class MortarRecipe implements IRecipe {
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return ingredients.size() + 1;
-	}
-
-	@Override
 	public ItemStack getRecipeOutput() {
 		return this.result;
 	}
@@ -102,6 +96,29 @@ public class MortarRecipe implements IRecipe {
 		}
 
 		return nonnulllist;
+	}
+
+	@Override
+	public IRecipe setRegistryName(ResourceLocation name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResourceLocation getRegistryName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Class<IRecipe> getRegistryType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean canFit(int width, int height) {
+		return (width * height) >= (ingredients.size() + 1);
 	}
 
 }
