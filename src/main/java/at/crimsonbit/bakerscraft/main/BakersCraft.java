@@ -161,14 +161,16 @@ public class BakersCraft {
 		potato_bread = new QuickFood(potato_bread_hunger, potato_bread__saturation, false, 32, "potato_bread");
 		registerItem("potato_bread", potato_bread);
 
-		blockApplePie = new BlockCustomCake(apple_pie_hunger, apple_pie_saturation).setHardness(0.5f).setUnlocalizedName("apple_pie");
+		blockApplePie = new BlockCustomCake(apple_pie_hunger, apple_pie_saturation).setHardness(0.5f)
+				.setUnlocalizedName("apple_pie");
 
 		itemApplePie = new ItemBlockSpecial(blockApplePie).setMaxStackSize(1).setUnlocalizedName("apple_pie")
 				.setCreativeTab(CreativeTabs.FOOD);
 		registerItem("apple_pie", itemApplePie);
 		registerBlock("apple_pie", blockApplePie);
 
-		blockCarrotCake = new BlockCustomCake(carrot_cake_hunger, carrot_cake_saturation).setHardness(0.5f).setUnlocalizedName("carrot_cake");
+		blockCarrotCake = new BlockCustomCake(carrot_cake_hunger, carrot_cake_saturation).setHardness(0.5f)
+				.setUnlocalizedName("carrot_cake");
 
 		itemCarrotCake = new ItemBlockSpecial(blockCarrotCake).setMaxStackSize(1).setUnlocalizedName("carrot_cake")
 				.setCreativeTab(CreativeTabs.FOOD);
@@ -221,6 +223,10 @@ public class BakersCraft {
 		GameRegistry.addShapelessRecipe(new ItemStack(potato_dough, 2), dough, Items.BAKED_POTATO);
 		GameRegistry.addShapedRecipe(new ItemStack(chocolate_cake_dough, 2), "CCC", "SES", "DMD", 'E', Items.EGG, 'C',
 				chocolate_bar, 'M', Items.MILK_BUCKET, 'D', dough, 'S', Items.SUGAR);
+		GameRegistry.addShapedRecipe(new ItemStack(itemApplePie), "AMA", "SES", "DDD", 'A', Items.APPLE, 'M',
+				Items.MILK_BUCKET, 'S', Items.SUGAR, 'E', Items.EGG, 'D', dough);
+		GameRegistry.addShapedRecipe(new ItemStack(itemCarrotCake), "AMA", "SES", "DDD", 'A', Items.CARROT, 'M',
+				Items.MILK_BUCKET, 'S', Items.SUGAR, 'E', Items.EGG, 'D', dough);
 
 		// Smelting
 		GameRegistry.addSmelting(dough, new ItemStack(Items.BREAD), 0.2F);
