@@ -221,6 +221,10 @@ public class BakersCraft {
 		GameRegistry.addShapelessRecipe(new ItemStack(potato_dough, 2), dough, Items.BAKED_POTATO);
 		GameRegistry.addShapedRecipe(new ItemStack(chocolate_cake_dough, 2), "CCC", "SES", "DMD", 'E', Items.EGG, 'C',
 				chocolate_bar, 'M', Items.MILK_BUCKET, 'D', dough, 'S', Items.SUGAR);
+		GameRegistry.addShapedRecipe(new ItemStack(itemApplePie), "AMA", "SES", "DDD", 'A', Items.APPLE, 'M',
+				Items.MILK_BUCKET, 'S', Items.SUGAR, 'E', Items.EGG, 'D', dough);
+		GameRegistry.addShapedRecipe(new ItemStack(itemCarrotCake), "AMA", "SES", "DDD", 'A', Items.CARROT, 'M',
+				Items.MILK_BUCKET, 'S', Items.SUGAR, 'E', Items.EGG, 'D', dough);
 
 		// Smelting
 		GameRegistry.addSmelting(dough, new ItemStack(Items.BREAD), 0.2F);
