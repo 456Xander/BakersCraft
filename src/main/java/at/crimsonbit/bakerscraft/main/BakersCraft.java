@@ -34,7 +34,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class BakersCraft {
 	public static final String modid = "bakerscraft";
 	public static final String name = "Bakers Craft";
-	public static final String version = "1.0";
+	public static final String version = "1.0.1";
 
 	@Instance
 	public static BakersCraft instance;
