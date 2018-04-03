@@ -8,4 +8,9 @@ public class GenericItem extends Item {
 		setUnlocalizedName(unlocalizedName);
 	}
 	
+	@Override
+	public String toString() {
+		return this.getRegistryName().toString();
+	}
+	
 }

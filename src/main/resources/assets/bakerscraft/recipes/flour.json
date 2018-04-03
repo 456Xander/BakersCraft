@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "minecraft:wheat"
+		},
+		[
+			{
+				"item": "bakerscraft:stone_mortar"
+			},
+			{
+				"item": "bakerscraft:iron_mortar"
+			},
+			{
+				"item": "bakerscraft:obsidian_mortar"
+			}
+		]
+	],
+	"result": {
+		"item": "bakerscraft:flour"
+	}
+}

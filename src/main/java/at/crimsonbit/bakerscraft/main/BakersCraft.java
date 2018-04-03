@@ -1,6 +1,24 @@
 package at.crimsonbit.bakerscraft.main;
 
-import static at.crimsonbit.bakerscraft.item.AllItems.*;
+import static at.crimsonbit.bakerscraft.item.AllItems.blockApplePie;
+import static at.crimsonbit.bakerscraft.item.AllItems.blockCarrotCake;
+import static at.crimsonbit.bakerscraft.item.AllItems.chocolate_bar;
+import static at.crimsonbit.bakerscraft.item.AllItems.chocolate_cake;
+import static at.crimsonbit.bakerscraft.item.AllItems.chocolate_cake_dough;
+import static at.crimsonbit.bakerscraft.item.AllItems.chocolate_cookie;
+import static at.crimsonbit.bakerscraft.item.AllItems.chocolate_muffin;
+import static at.crimsonbit.bakerscraft.item.AllItems.chocolate_muffin_dough;
+import static at.crimsonbit.bakerscraft.item.AllItems.cookieDough;
+import static at.crimsonbit.bakerscraft.item.AllItems.dough;
+import static at.crimsonbit.bakerscraft.item.AllItems.doughTab;
+import static at.crimsonbit.bakerscraft.item.AllItems.flour;
+import static at.crimsonbit.bakerscraft.item.AllItems.iron_mortar;
+import static at.crimsonbit.bakerscraft.item.AllItems.itemApplePie;
+import static at.crimsonbit.bakerscraft.item.AllItems.itemCarrotCake;
+import static at.crimsonbit.bakerscraft.item.AllItems.obsidian_mortar;
+import static at.crimsonbit.bakerscraft.item.AllItems.potato_bread;
+import static at.crimsonbit.bakerscraft.item.AllItems.potato_dough;
+import static at.crimsonbit.bakerscraft.item.AllItems.stone_mortar;
 
 import at.crimsonbit.bakerscraft.block.BlockCustomCake;
 import at.crimsonbit.bakerscraft.item.CraftingTool;
@@ -8,16 +26,17 @@ import at.crimsonbit.bakerscraft.item.CraftingTool.CraftingToolType;
 import at.crimsonbit.bakerscraft.item.GenericItem;
 import at.crimsonbit.bakerscraft.item.ItemFlour;
 import at.crimsonbit.bakerscraft.item.QuickFood;
+import at.crimsonbit.bakerscraft.item.RegisterHandler;
 import at.crimsonbit.bakerscraft.proxy.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlockSpecial;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
@@ -28,7 +47,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(modid = BakersCraft.modid, name = BakersCraft.name, version = BakersCraft.version)
 public class BakersCraft {
@@ -42,7 +61,9 @@ public class BakersCraft {
 	@SidedProxy(clientSide = "at.crimsonbit.bakerscraft.proxy.ClientProxy", serverSide = "at.crimsonbit.bakerscraft.proxy.ServerProxy")
 	public static ServerProxy proxy;
 
-	private boolean allowAllStoneForMortar;
+	public BakersCraft() {
+		MinecraftForge.EVENT_BUS.register(RegisterHandler.instance);
+	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
@@ -60,8 +81,6 @@ public class BakersCraft {
 		ConfigCategory food = config.getCategory("Food");
 		food.setComment("Configurations for food");
 
-		allowAllStoneForMortar = config.getBoolean("AllowAllStone", crafting.getName(), false,
-				"Set this to true to allow all kinds of stone to be used for the stone mortar, requires the UnifiedStoneTools mod");
 		int durabilityMortarStone = config.getInt("StoneMortarDurability", craftingTools.getName(), 32, 1,
 				Short.MAX_VALUE, "");
 		int durabilityMortarIron = config.getInt("IronMortarDurability", craftingTools.getName(), 128, 1,
@@ -180,23 +199,26 @@ public class BakersCraft {
 	}
 
 	private void registerItem(String name, Item item) {
-		proxy.registerTexture(item, 0, new ModelResourceLocation(modid + ":" + name, "inventory"));
 		item.setRegistryName(name);
-		GameRegistry.register(item);
+//		proxy.registerTexture(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+		RegisterHandler.instance.register(item);
 	}
 
 	private void registerBlock(String name, Block block) {
 		block.setRegistryName(name);
-		GameRegistry.register(block);
+		RegisterHandler.instance.register(block);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
 
-		// Mortar Recipes
+		OreDictionary.registerOre("listAllStone", Blocks.COBBLESTONE);
+
+		/*@formatter:off
+		 Mortar Recipes
 		GameRegistry.addRecipe(new MortarRecipe(new ItemStack(flour, 1), Items.WHEAT));
 
-		// Mortar Crafting
+//		 Mortar Crafting
 		if (allowAllStoneForMortar) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stone_mortar), "BSB", " B ", 'B', "listAllStone",
 					'S', "stickWood"));
@@ -211,19 +233,22 @@ public class BakersCraft {
 		GameRegistry.addRecipe(
 				new ShapedOreRecipe(new ItemStack(obsidian_mortar), "OSO", " O ", 'O', "obsidian", 'S', "gemDiamond"));
 
-		// Other Crafting
+		 Other Crafting
 		GameRegistry.addShapelessRecipe(new ItemStack(dough), flour, Items.WATER_BUCKET);
 		GameRegistry.addShapelessRecipe(new ItemStack(cookieDough, 3), dough,
 				new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()),
 				new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()));
+
 		GameRegistry.addShapelessRecipe(new ItemStack(chocolate_bar),
 				new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()), Items.SUGAR, Items.MILK_BUCKET);
+
 		GameRegistry.addShapelessRecipe(new ItemStack(chocolate_muffin_dough), chocolate_bar, dough, Items.SUGAR,
 				Items.EGG);
 		GameRegistry.addShapelessRecipe(new ItemStack(potato_dough, 2), dough, Items.BAKED_POTATO);
 		GameRegistry.addShapedRecipe(new ItemStack(chocolate_cake_dough, 2), "CCC", "SES", "DMD", 'E', Items.EGG, 'C',
 				chocolate_bar, 'M', Items.MILK_BUCKET, 'D', dough, 'S', Items.SUGAR);
-
+@formatter:on
+ */
 		// Smelting
 		GameRegistry.addSmelting(dough, new ItemStack(Items.BREAD), 0.2F);
 		GameRegistry.addSmelting(cookieDough, new ItemStack(chocolate_cookie, 2), 0.1f);
@@ -234,7 +259,7 @@ public class BakersCraft {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
-
+		RegisterHandler.instance.free();
 	}
 
 }

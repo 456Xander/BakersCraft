@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"#S#",
+		" # "
+	],
+	"key": {
+		"#": {
+			"type": "forge:ore_dict",
+			"ore": "listAllStone"
+		},
+		"S": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"item": "bakerscraft:iron_mortar"
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "bakerscraft:chocolate_bar"
+		},
+		{
+			"item": "minecraft:egg"
+		},
+		{
+			"item": "minecraft:sugar"
+		},
+		{
+			"item": "bakerscraft:dough"
+		}
+	],
+	"result": {
+		"item": "bakerscraft:chocolate_muffin"
+	}
+}

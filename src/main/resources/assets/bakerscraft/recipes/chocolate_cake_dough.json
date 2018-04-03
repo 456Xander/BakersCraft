@@ -1,0 +1,29 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CCC",
+		"SES",
+		"DMD"
+	],
+	"key": {
+		"C": {
+			"item": "bakerscraft:chocolate_bar"
+		},
+		"E": {
+			"item": "minecraft:egg"
+		},
+		"S": {
+			"item": "minecraft:sugar"
+		},
+		"D": {
+			"item": "bakerscraft:dough"
+		},
+		"M": {
+			"item": "minecraft:milk_bucket"
+		}
+	},
+	"result": {
+		"item": "bakerscraft:chocolate_cake_dough",
+		"amount": 2
+	}
+}

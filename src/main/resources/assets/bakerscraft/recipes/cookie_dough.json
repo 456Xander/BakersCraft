@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "bakerscraft:dough"
+		},
+		{
+			"item": "minecraft:dye",
+			"data": 3
+		},
+		{
+			"item": "minecraft:dye",
+			"data": 3
+		}
+	],
+	"result": {
+		"item": "bakerscraft:cookie_dough",
+		"amount": 3
+	}
+}

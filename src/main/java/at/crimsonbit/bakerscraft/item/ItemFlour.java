@@ -14,7 +14,6 @@ public class ItemFlour extends GenericItem {
 	public ItemFlour(String unlocalizedName) {
 		super(unlocalizedName);
 		flourRandom = new Random();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -24,7 +23,7 @@ public class ItemFlour extends GenericItem {
 		if (world.getBlockState(position).getBlock() == Blocks.WATER) {
 			ItemStack items = entityItem.getItem();
 			entityItem.setItem(new ItemStack(AllItems.dough, items.getCount()));
-			entityItem.addVelocity((flourRandom.nextDouble() - 0.5) / 2, (flourRandom.nextDouble() / 2) + 0.5,
+			entityItem.addVelocity((flourRandom.nextDouble() - 0.5) / 2, (flourRandom.nextDouble() / 2) + 0.3,
 					(flourRandom.nextDouble() - 0.5) / 2);
 			return true;
 		}
