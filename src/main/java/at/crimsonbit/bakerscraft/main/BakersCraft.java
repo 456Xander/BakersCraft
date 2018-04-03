@@ -29,7 +29,6 @@ import at.crimsonbit.bakerscraft.item.QuickFood;
 import at.crimsonbit.bakerscraft.item.RegisterHandler;
 import at.crimsonbit.bakerscraft.proxy.ServerProxy;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

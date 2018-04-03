@@ -3,7 +3,7 @@
 	"pattern": [
 		"CCC",
 		"SES",
-		"DMD"
+		"DDD"
 	],
 	"key": {
 		"C": {
@@ -17,13 +17,10 @@
 		},
 		"D": {
 			"item": "bakerscraft:dough"
-		},
-		"M": {
-			"item": "minecraft:milk_bucket"
 		}
 	},
 	"result": {
 		"item": "bakerscraft:chocolate_cake_dough",
-		"amount": 2
+		"count": 2
 	}
 }

@@ -6,13 +6,16 @@
 		},
 		[
 			{
-				"item": "bakerscraft:stone_mortar"
+				"item": "bakerscraft:stone_mortar",
+				"data": 32767
 			},
 			{
-				"item": "bakerscraft:iron_mortar"
+				"item": "bakerscraft:iron_mortar",
+				"data": 32767
 			},
 			{
-				"item": "bakerscraft:obsidian_mortar"
+				"item": "bakerscraft:obsidian_mortar",
+				"data": 32767
 			}
 		]
 	],

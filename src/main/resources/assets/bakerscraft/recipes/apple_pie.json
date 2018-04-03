@@ -23,7 +23,6 @@
 		}
 	},
 	"result": {
-		"item": "bakerscraft:chocolate_cake_dough",
-		"amount": 2
+		"item": "bakerscraft:apple_pie"
 	}
 }
