@@ -50,6 +50,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(modid = BakersCraft.modid, name = BakersCraft.name, version = BakersCraft.version)
 public class BakersCraft {
+	private static final String CFG_USE_VAN_COOKIES_DESC = "true to use vanilla cookies instead of this mods cookies, all other cookie config will not change anything if this is true";
 	public static final String modid = "bakerscraft";
 	public static final String name = "Bakers Craft";
 	public static final String version = "1.0.2";
@@ -88,7 +89,7 @@ public class BakersCraft {
 				Short.MAX_VALUE, "");
 
 		boolean useVanillaCookies = config.getBoolean("useVanillaCookies", food.getName(), false,
-				"true to use vanilla cookies instead of this mods cookies, all other cookie config will not change anything if this is true");
+				CFG_USE_VAN_COOKIES_DESC);
 		int cookieHunger = config.getInt("cookieHunger", food.getName(), 2, 1, 20,
 				"How many hunger a cookie refills, a player has 20");
 		float cookieSaturation = config.getFloat("cookieSaturation", food.getName(), 0.25f, 0.0f, 1.0f,
@@ -199,7 +200,8 @@ public class BakersCraft {
 
 	private void registerItem(String name, Item item) {
 		item.setRegistryName(name);
-//		proxy.registerTexture(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+		// proxy.registerTexture(item, 0, new
+		// ModelResourceLocation(item.getRegistryName(), "inventory"));
 		RegisterHandler.instance.register(item);
 	}
 
@@ -212,42 +214,6 @@ public class BakersCraft {
 	public void init(FMLInitializationEvent e) {
 
 		OreDictionary.registerOre("listAllStone", Blocks.COBBLESTONE);
-
-		/*@formatter:off
-		 Mortar Recipes
-		GameRegistry.addRecipe(new MortarRecipe(new ItemStack(flour, 1), Items.WHEAT));
-
-//		 Mortar Crafting
-		if (allowAllStoneForMortar) {
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stone_mortar), "BSB", " B ", 'B', "listAllStone",
-					'S', "stickWood"));
-		} else {
-			GameRegistry.addShapedRecipe(new ItemStack(stone_mortar), "BSB", " B ", 'B', Blocks.STONE, 'S',
-					Items.STICK);
-		}
-
-		GameRegistry.addRecipe(
-				new ShapedOreRecipe(new ItemStack(iron_mortar), "ISI", " I ", 'I', "ingotIron", 'S', "stickWood"));
-
-		GameRegistry.addRecipe(
-				new ShapedOreRecipe(new ItemStack(obsidian_mortar), "OSO", " O ", 'O', "obsidian", 'S', "gemDiamond"));
-
-		 Other Crafting
-		GameRegistry.addShapelessRecipe(new ItemStack(dough), flour, Items.WATER_BUCKET);
-		GameRegistry.addShapelessRecipe(new ItemStack(cookieDough, 3), dough,
-				new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()),
-				new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()));
-
-		GameRegistry.addShapelessRecipe(new ItemStack(chocolate_bar),
-				new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()), Items.SUGAR, Items.MILK_BUCKET);
-
-		GameRegistry.addShapelessRecipe(new ItemStack(chocolate_muffin_dough), chocolate_bar, dough, Items.SUGAR,
-				Items.EGG);
-		GameRegistry.addShapelessRecipe(new ItemStack(potato_dough, 2), dough, Items.BAKED_POTATO);
-		GameRegistry.addShapedRecipe(new ItemStack(chocolate_cake_dough, 2), "CCC", "SES", "DMD", 'E', Items.EGG, 'C',
-				chocolate_bar, 'M', Items.MILK_BUCKET, 'D', dough, 'S', Items.SUGAR);
-@formatter:on
- */
 		// Smelting
 		GameRegistry.addSmelting(dough, new ItemStack(Items.BREAD), 0.2F);
 		GameRegistry.addSmelting(cookieDough, new ItemStack(chocolate_cookie, 2), 0.1f);
